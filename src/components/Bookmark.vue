@@ -21,19 +21,19 @@ defineProps<{ bookmark: IBookmark }>();
   border-radius: variables.$radius-small;
   transition: background-color 0.2s ease;
   cursor: grab;
-}
-.bookmark-item:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-.bookmark-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: variables.$color-text-muted;
-  font-size: variables.$font-size-bookmark;
-  width: 100%;
-}
-.bookmark-link:hover {
-  color: variables.$color-accent;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  .bookmark-link {
+    text-decoration: none;
+    color: variables.$color-text-muted;
+    font-size: variables.$font-size-bookmark;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    &:hover {
+      color: variables.$color-accent;
+    }
+  }
 }
 </style>

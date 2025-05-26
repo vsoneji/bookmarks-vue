@@ -57,7 +57,7 @@
 import { ref, watch } from 'vue';
 import draggable from 'vuedraggable';
 import DndIcon from './PanelEditor.dnd-icon.vue';
-import { getContrastYIQ } from '../utils/color';
+import { getContrastYIQ, panelColors } from '../utils/color';
 import type { IBookmarkPanel } from '../model/schema';
 
 const props = defineProps<{
@@ -72,31 +72,6 @@ const panel = ref<IBookmarkPanel>(props.panelData ? { ...props.panelData } : {
   color: '#3a8eff',
   bookmarks: [],
 });
-
-const panelColors = [
-  { name: 'Blue', value: '#3a8eff' },
-  { name: 'Amber', value: '#ffb300' },
-  { name: 'Red', value: '#e57373' },
-  { name: 'Green', value: '#81c784' },
-  { name: 'Purple', value: '#ba68c8' },
-  { name: 'Yellow', value: '#ffd54f' },
-  { name: 'Cyan', value: '#4dd0e1' },
-  { name: 'Pink', value: '#f06292' },
-  { name: 'Brown', value: '#a1887f' },
-  { name: 'Slate', value: '#90a4ae' },
-  { name: 'Charcoal', value: '#181c20' },
-  { name: 'Dark Gray', value: '#353535' },
-  // Pastel and new colors
-  { name: 'Pastel Blue', value: '#b3c7f7' },
-  { name: 'Pastel Green', value: '#b2f7c1' },
-  { name: 'Pastel Pink', value: '#f7b3d4' },
-  { name: 'Pastel Yellow', value: '#f7f3b3' },
-  { name: 'Pastel Purple', value: '#d6b3f7' },
-  { name: 'Pastel Orange', value: '#ffd6b3' },
-  { name: 'Pastel Teal', value: '#b3f7f3' },
-  { name: 'Pastel Red', value: '#f7b3b3' },
-  { name: 'Pastel Gray', value: '#e0e0e0' },
-];
 
 watch(() => props.panelData, (newVal) => {
   if (newVal) panel.value = { ...newVal };
@@ -135,24 +110,136 @@ function handleDelete() {
 .dialog {
   background: variables.$color-bg-hover;
   border-radius: variables.$radius-large;
-  padding: 40px 48px 28px 48px; // even wider padding
-  min-width: 620px; // much wider minimum width
+  padding: 40px 48px 28px 48px;
+  min-width: 620px;
   max-width: 820px;
   box-shadow: 0 4px 32px rgba(0,0,0,0.45);
   color: variables.$color-text-secondary;
-}
-.dialog-title {
-  font-size: 1.2em;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-.dialog-desc {
-  font-size: 0.95em;
-  margin-bottom: 12px;
-  color: variables.$color-text-muted;
-}
-.form-group {
-  margin-bottom: 16px;
+  .dialog-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .dialog-desc {
+    font-size: 0.95em;
+    margin-bottom: 12px;
+    color: variables.$color-text-muted;
+  }
+  .form-group {
+    margin-bottom: 16px;
+  }
+  .color-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+    .color-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border 0.2s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+      &.selected {
+        border: 2px solid variables.$color-text;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      }
+    }
+  }
+  .bookmarks-list {
+    margin-bottom: 8px;
+    .bookmark-item-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      input[placeholder="Label"] {
+        flex: 0 0 120px;
+        min-width: 80px;
+        max-width: 180px;
+      }
+      input[placeholder="URL"] {
+        flex: 1 1 0%;
+        min-width: 180px;
+        max-width: none;
+      }
+      button {
+        background: none;
+        border: none;
+        padding: 0 6px;
+        font-size: 1.2em;
+        cursor: pointer;
+        color: #b3b3b3;
+        transition: color 0.2s, background 0.2s;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+          background: #232323;
+          color: #ff5252;
+        }
+        &::after {
+          content: '\1F5D1';
+          font-size: 1.2em;
+          color: #b3b3b3;
+          filter: brightness(0.8);
+        }
+      }
+    }
+  }
+  .add-bookmark-btn {
+    background: variables.$color-accent;
+    color: variables.$color-text;
+    border: none;
+    border-radius: variables.$radius-small;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 0.95em;
+    margin-top: 4px;
+    &:hover {
+      background: variables.$color-accent-dark;
+    }
+  }
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+    button {
+      border-radius: variables.$radius-small;
+      padding: 4px 12px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.2s, color 0.2s;
+      &.cancel {
+        background: none;
+        color: variables.$color-text-muted;
+        border: 1px solid #444;
+      }
+      &.contained, &:not(.cancel) {
+        background: variables.$color-accent;
+        color: variables.$color-text;
+        border: none;
+      }
+      &:hover {
+        background: variables.$color-accent-dark;
+        color: variables.$color-text;
+      }
+      &.delete.outlined {
+        background: none;
+        border: 1.5px solid #ff5252;
+        color: #ff5252;
+        margin-right: auto;
+        &:hover {
+          background: #232323;
+          color: #fff;
+          border-color: #ff5252;
+        }
+      }
+    }
+  }
 }
 input[type="text"], input[type="url"], input {
   background: variables.$color-bg;
@@ -162,120 +249,8 @@ input[type="text"], input[type="url"], input {
   padding: 4px 8px;
   margin-right: 6px;
   font-size: 1em;
-}
-input:focus {
-  outline: 2px solid variables.$color-accent;
-}
-.color-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 4px;
-}
-.color-swatch {
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  transition: border 0.2s;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-}
-.color-swatch.selected {
-  border: 2px solid variables.$color-text;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-}
-.bookmarks-list {
-  margin-bottom: 8px;
-}
-.bookmark-item-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
-}
-.bookmark-item-row input[placeholder="Label"] {
-  flex: 0 0 120px;
-  min-width: 80px;
-  max-width: 180px;
-}
-.bookmark-item-row input[placeholder="URL"] {
-  flex: 1 1 0%;
-  min-width: 180px;
-  max-width: none;
-}
-.bookmark-item-row button {
-  background: none;
-  border: none;
-  padding: 0 6px;
-  font-size: 1.2em;
-  cursor: pointer;
-  color: #b3b3b3;
-  transition: color 0.2s, background 0.2s;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.bookmark-item-row button:hover {
-  background: #232323;
-  color: #ff5252;
-}
-.bookmark-item-row button::after {
-  content: '\1F5D1'; /* Unicode for trash can */
-  font-size: 1.2em;
-  color: #b3b3b3;
-  filter: brightness(0.8);
-}
-.add-bookmark-btn {
-  background: variables.$color-accent;
-  color: variables.$color-text;
-  border: none;
-  border-radius: variables.$radius-small;
-  padding: 4px 10px;
-  cursor: pointer;
-  font-size: 0.95em;
-  margin-top: 4px;
-}
-.add-bookmark-btn:hover {
-  background: variables.$color-accent-dark;
-}
-.dialog-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 12px;
-}
-button.cancel {
-  background: none;
-  color: variables.$color-text-muted;
-  border: 1px solid #444;
-}
-button.contained, .dialog-actions button:not(.cancel) {
-  background: variables.$color-accent;
-  color: variables.$color-text;
-  border: none;
-}
-button, .dialog-actions button {
-  border-radius: variables.$radius-small;
-  padding: 4px 12px;
-  cursor: pointer;
-  font-size: 1em;
-  transition: background 0.2s, color 0.2s;
-}
-button:hover, .dialog-actions button:hover {
-  background: variables.$color-accent-dark;
-  color: variables.$color-text;
-}
-button.delete.outlined {
-  background: none;
-  border: 1.5px solid #ff5252;
-  color: #ff5252;
-  margin-right: auto;
-}
-button.delete.outlined:hover {
-  background: #232323;
-  color: #fff;
-  border-color: #ff5252;
+  &:focus {
+    outline: 2px solid variables.$color-accent;
+  }
 }
 </style>

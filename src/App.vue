@@ -151,6 +151,7 @@ watch(() => data.value.title, (title) => { document.title = title; });
 <style scoped lang="scss">
 @use "./styles/_variables" as variables;
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
+
 .app-bar {
   display: flex;
   align-items: center;
@@ -174,10 +175,10 @@ watch(() => data.value.title, (title) => { document.title = title; });
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.icon-btn:hover, .add-panel-btn:hover {
-  background: variables.$color-bg-hover;
-  color: variables.$color-accent;
+  &:hover {
+    background: variables.$color-bg-hover;
+    color: variables.$color-accent;
+  }
 }
 .appbar-icon {
   font-size: variables.$font-size-icon;
@@ -196,7 +197,7 @@ watch(() => data.value.title, (title) => { document.title = title; });
 }
 .bookmarks-grid {
   display: grid;
-  grid-template-columns: repeat(var(--panel-columns, 3), 240px);
+  grid-template-columns: repeat(var(--panel-columns, 3), 200px);
   gap: variables.$gap-grid;
   margin: 0;
   justify-content: start;

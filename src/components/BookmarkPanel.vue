@@ -102,59 +102,59 @@ function cloneBookmark(_bookmark: IBookmark) {
   display: flex;
   flex-direction: column;
   min-height: 50px;
-}
-.bookmark-panel:hover {
-  transform: translateY(-2px);
-  box-shadow: variables.$box-shadow-panel-hover;
-  background-color: variables.$color-panel-hover;
-}
-.panel-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: variables.$font-size-panel-title;
-  font-weight: 600;
-  margin-bottom: 6px;
-  padding: 4px 6px;
-  border-radius: variables.$radius-small;
-  background-color: v-bind('panelData.color || "#353535"');
-  color: variables.$color-text;
-}
-.panel-controls {
-  display: flex;
-  align-items: center;
-  gap: variables.$gap-panel-controls;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.panel-heading:hover .panel-controls {
-  opacity: 1;
-}
-.panel-controls button {
-  padding: 1px;
-  color: rgba(255,255,255,0.7);
-  background: none;
-  border: none;
-  border-radius: variables.$radius-small;
-  transition: color 0.2s, background 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.panel-controls button:hover {
-  color: rgba(255,255,255,0.9);
-  background: rgba(255,255,255,0.1);
-}
-.bookmark-list {
-  display: flex;
-  flex-direction: column;
-  gap: variables.$gap-bookmark-list;
-  flex: 1;
-  min-height: 10px;
-  margin-top: 4px;
-  list-style: none;
-  padding: 0;
-  margin-bottom: 0;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: variables.$box-shadow-panel-hover;
+    background-color: variables.$color-panel-hover;
+  }
+  .panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: variables.$font-size-panel-title;
+    font-weight: 600;
+    margin-bottom: 6px;
+    padding: 4px 6px;
+    border-radius: variables.$radius-small;
+    background-color: v-bind('panelData.color || "#353535"');
+    color: variables.$color-text;
+    .panel-controls {
+      display: flex;
+      align-items: center;
+      gap: variables.$gap-panel-controls;
+      opacity: 0;
+      transition: opacity 0.2s;
+      button {
+        padding: 1px;
+        color: rgba(255,255,255,0.7);
+        background: none;
+        border: none;
+        border-radius: variables.$radius-small;
+        transition: color 0.2s, background 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+          color: rgba(255,255,255,0.9);
+          background: rgba(255,255,255,0.1);
+        }
+      }
+    }
+    &:hover .panel-controls {
+      opacity: 1;
+    }
+  }
+  .bookmark-list {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$gap-bookmark-list;
+    flex: 1;
+    min-height: 10px;
+    margin-top: 4px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+  }
 }
 .icon {
   font-size: 16px;
