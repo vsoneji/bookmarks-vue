@@ -1,7 +1,7 @@
 import type { IBookmarkData } from '../model/schema';
 import { sampleData } from '../model/sampleData';
 
-function initializeSequences(data: IBookmarkData): IBookmarkData {
+export function initializeSequences(data: IBookmarkData): IBookmarkData {
   return {
     ...data,
     panels: data.panels.map((panel, index) => ({
