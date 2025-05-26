@@ -1,0 +1,38 @@
+// Colors
+$color-bg: #121212;
+$color-bg-hover: #2a2f36;
+$color-accent: #3a8eff;
+$color-accent-dark: #1976d2;
+$color-panel: #1e1e1e;
+$color-panel-hover: #2a2a2a;
+$color-text: #fff;
+$color-text-secondary: #e0e0e0;
+$color-text-muted: #b3b3b3;
+$color-border: #333;
+$color-shadow: #0003;
+
+// Font
+$font-family-base: 'Segoe UI', Arial, sans-serif;
+$font-size-base: 15px;
+$font-size-title: 1.15em;
+$font-size-icon: 22px;
+$font-size-panel-title: 14px;
+$font-size-bookmark: 12px;
+
+// Border radius
+$radius-small: 4px;
+$radius-medium: 6px;
+$radius-large: 8px;
+
+// Spacing
+$padding-appbar: 0.4em 1.2em 0.4em 1.2em;
+$padding-btn: 2px 7px;
+$gap-grid: 10px;
+$gap-panel: 8px;
+$gap-panel-controls: 4px;
+$gap-bookmark-list: 2px;
+
+// Others
+$box-shadow-appbar: 0 2px 8px $color-shadow;
+$box-shadow-panel: 0 2px 4px rgba(0,0,0,0.3);
+$box-shadow-panel-hover: 0 3px 6px rgba(0,0,0,0.4);
